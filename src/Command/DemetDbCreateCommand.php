@@ -11,7 +11,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'demet:db:create',
-    description: 'Crée la base de données si elle n\'existe pas',
+    description: 'Supprime la base de données si elle existe, puis la recrée',
 )]
 class DemetDbCreateCommand extends Command
 {
@@ -19,14 +19,30 @@ class DemetDbCreateCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $code = $this->getApplication()
-            ->find('doctrine:database:create')
-            ->run(new ArrayInput(['--if-not-exists' => true]), $output);
-
-        if ($code === Command::SUCCESS) {
-            $io->success('Base prête 🚀');
+        if (!$io->confirm('Ça va SUPPRIMER la base existante. Continuer ?', false)) {
+            $io->warning('Annulé.');
+            return Command::SUCCESS;
         }
 
-        return $code;
+        $steps = [
+            ['doctrine:database:drop', ['--if-exists' => true, '--force' => true]],
+            ['doctrine:database:create', []],
+        ];
+
+        foreach ($steps as [$name, $args]) {
+            $arrayInput = new ArrayInput($args);
+            $arrayInput->setInteractive(false);
+
+            $code = $this->getApplication()->find($name)->run($arrayInput, $output);
+
+            if ($code !== Command::SUCCESS) {
+                $io->error("Échec sur $name");
+                return $code;
+            }
+        }
+
+        $io->success('Base supprimée puis recréée 🚀');
+
+        return Command::SUCCESS;
     }
 }
