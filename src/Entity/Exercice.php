@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\StatutExercice;
 use App\Repository\ExerciceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,6 +25,9 @@ class Exercice
 
     #[ORM\Column]
     private ?\DateTime $dateRetributionAt = null;
+
+    #[ORM\Column(enumType: StatutExercice::class)]
+    private ?StatutExercice $statut = null;
 
     public function getId(): ?int
     {
@@ -74,6 +78,18 @@ class Exercice
     public function setDateRetributionAt(\DateTime $dateRetributionAt): static
     {
         $this->dateRetributionAt = $dateRetributionAt;
+
+        return $this;
+    }
+
+    public function getStatut(): ?StatutExercice
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(StatutExercice $statut): static
+    {
+        $this->statut = $statut;
 
         return $this;
     }
