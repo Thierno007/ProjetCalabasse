@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Groupement
 {
     use DateTimeTrait;
+   
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -36,6 +38,8 @@ class Groupement
     public function __construct()
     {
         $this->exercices = new ArrayCollection();
+        $this->initDate();
+
     }
 
     public function getId(): ?int
