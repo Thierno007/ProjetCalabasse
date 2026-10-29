@@ -16,6 +16,14 @@ class ModeCotisation
     #[ORM\Column]
     private ?bool $IsLibre = null;
 
+    #[ORM\ManyToOne(inversedBy: 'modeCotisations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Membre $membre = null;
+
+    #[ORM\ManyToOne(inversedBy: 'modeCotisations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Campagne $campagne = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +37,30 @@ class ModeCotisation
     public function setIsLibre(bool $IsLibre): static
     {
         $this->IsLibre = $IsLibre;
+
+        return $this;
+    }
+
+    public function getMembre(): ?Membre
+    {
+        return $this->membre;
+    }
+
+    public function setMembre(?Membre $membre): static
+    {
+        $this->membre = $membre;
+
+        return $this;
+    }
+
+    public function getCampagne(): ?Campagne
+    {
+        return $this->campagne;
+    }
+
+    public function setCampagne(?Campagne $campagne): static
+    {
+        $this->campagne = $campagne;
 
         return $this;
     }
