@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ModePaimentRepository;
+use App\Repository\ModeCotisationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ModePaimentRepository::class)]
-class ModePaiment
+#[ORM\Entity(repositoryClass: ModeCotisationRepository::class)]
+class ModeCotisation
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\ModePaiment;
+use App\Entity\ModeCotisation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ModePaiment>
+ * @extends ServiceEntityRepository<ModeCotisation>
  */
-class ModePaimentRepository extends ServiceEntityRepository
+class ModeCotisationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ModePaiment::class);
+        parent::__construct($registry, ModeCotisation::class);
     }
 
 //    /**
-//     * @return ModePaiment[] Returns an array of ModePaiment objects
+//     * @return ModeCotisation[] Returns an array of ModeCotisation objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -31,7 +31,7 @@ class ModePaimentRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ModePaiment
+//    public function findOneBySomeField($value): ?ModeCotisation
 //    {
 //        return $this->createQueryBuilder('m')
 //            ->andWhere('m.exampleField = :val')
